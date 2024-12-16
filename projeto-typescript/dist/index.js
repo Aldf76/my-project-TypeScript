@@ -1,21 +1,31 @@
 "use strict";
-const add = (a, b) => {
-    return a + b;
-};
-const num1 = 15;
-const num2 = 10;
-const result = add(num1, num2);
-console.log(`A soma de ${num1} e ${num2} é: ${result}`);
-const Felipe = {
-    nome: 'Felipe',
-    idade: 30,
-    peso: '97kg',
-    isStudent: false
-};
-const Mariana = {
-    nome: "Mariana",
-    idade: null,
-    peso: "70kg",
-    isStudent: true
-};
-console.log(Mariana);
+var TaskStatus;
+(function (TaskStatus) {
+    TaskStatus["Pending"] = "Pending";
+    TaskStatus["inProgress"] = "In Progress";
+    TaskStatus["Completed"] = "Completed";
+})(TaskStatus || (TaskStatus = {}));
+function createTask(id, title, description) {
+    return {
+        id,
+        title,
+        description,
+        status: TaskStatus.Pending
+    };
+}
+function updateTaskStatus(task, newStatus) {
+    return Object.assign(Object.assign({}, task), { status: newStatus });
+}
+function displayTask(task) {
+    console.log(`Task ${task.id}`);
+    console.log(`Title: ${task.title}`);
+    console.log(`Description: ${task.description}`);
+    console.log(`Status: ${task.status}`);
+    console.log('<=================================>');
+}
+const task1 = createTask(1, "Learn TypeScript", "Understand the basics of TypeScript.");
+displayTask(task1);
+const updatedTask1 = updateTaskStatus(task1, TaskStatus.inProgress);
+displayTask(updatedTask1);
+const completedTask1 = updateTaskStatus(updatedTask1, TaskStatus.Completed);
+displayTask(completedTask1);
