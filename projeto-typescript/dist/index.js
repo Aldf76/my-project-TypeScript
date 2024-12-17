@@ -1,31 +1,43 @@
 "use strict";
-var TaskStatus;
-(function (TaskStatus) {
-    TaskStatus["Pending"] = "Pending";
-    TaskStatus["inProgress"] = "In Progress";
-    TaskStatus["Completed"] = "Completed";
-})(TaskStatus || (TaskStatus = {}));
-function createTask(id, title, description) {
-    return {
-        id,
-        title,
-        description,
-        status: TaskStatus.Pending
-    };
+//Tipos possíveis de usuário
+var TipoUsuario;
+(function (TipoUsuario) {
+    TipoUsuario[TipoUsuario["Admin"] = 1] = "Admin";
+    TipoUsuario[TipoUsuario["Usuario"] = 2] = "Usuario";
+})(TipoUsuario || (TipoUsuario = {}));
+//implementando a interface
+const funcionario1 = {
+    id: 1,
+    nome: "Jasmine",
+    idade: 23,
+    permissao: 1,
+    funcao: "Gerencia"
+};
+//implementando a interface
+const funcionario2 = {
+    id: 1,
+    nome: "Pedro",
+    idade: 18,
+    permissao: 2,
+    funcao: "Vendas"
+};
+//implementando a interface
+const funcionario3 = {
+    id: 1,
+    nome: "Helaine",
+    idade: 18,
+    permissao: 2,
+    funcao: "Vendas"
+};
+function getTipoUsuario(funcionario) {
+    const permissao = funcionario.permissao;
+    switch (permissao) {
+        case TipoUsuario.Admin:
+            return "Admin";
+        case TipoUsuario.Usuario:
+            return "Usuario";
+        default:
+            return "Tipo de usuário inválido";
+    }
 }
-function updateTaskStatus(task, newStatus) {
-    return Object.assign(Object.assign({}, task), { status: newStatus });
-}
-function displayTask(task) {
-    console.log(`Task ${task.id}`);
-    console.log(`Title: ${task.title}`);
-    console.log(`Description: ${task.description}`);
-    console.log(`Status: ${task.status}`);
-    console.log('<=================================>');
-}
-const task1 = createTask(1, "Learn TypeScript", "Understand the basics of TypeScript.");
-displayTask(task1);
-const updatedTask1 = updateTaskStatus(task1, TaskStatus.inProgress);
-displayTask(updatedTask1);
-const completedTask1 = updateTaskStatus(updatedTask1, TaskStatus.Completed);
-displayTask(completedTask1);
+console.log(getTipoUsuario(funcionario3));
